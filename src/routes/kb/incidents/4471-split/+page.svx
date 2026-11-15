@@ -1,0 +1,62 @@
+---
+layout: runbook
+title: '#4471 · one ticket, three problems'
+owner: piotrwanio
+status: proposed
+reviewed: 2026-11-15
+signature: piotrwanio
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+
+  const signature = 'piotrwanio';
+</script>
+
+[#4471](/kb/incidents/4471) says one bug and one fix. The reports merged into it say otherwise.
+The desk merged them on the subject line alone ([decision 0001](/kb/decisions/0001-dedupe-by-subject)),
+so reports with the same words but a different cause landed in the same ticket.
+
+<Callout>
+The queued fix covers the first problem below. The other two stay broken after it ships.
+</Callout>
+
+## The split
+
+<ProblemTable ticket={4471} />
+
+The export repeats some rows; one id counts once. A report's problem comes from its tenant, not from
+what intake guessed from the browser (`causes.ts`).
+
+## 1 · `parser`: the shared parser reads dates month first
+
+Tenants that write the day first get their dates flipped. This is the bug #4471 names. Most of the reports
+are this one. The queued fix belongs to this problem only.
+
+## 2 · `hint`: booking-v3 tells people to type month first
+
+Through booking-v3's form, people at day-first tenants type what the hint prints under the date field,
+`MM/DD/YYYY`, and the form reads it their way. The parser is not at fault; the hint is.
+Intake tagged many of these `parser` because the symptom looks the same.
+
+<Callout>
+Fixing the parser alone makes this worse: once the parser reads day first, people who typed month first
+because of the hint will be flipped the other way.
+</Callout>
+
+## 3 · `one-day`: bookings move by one day, not a swap
+
+The desk already read these as a one-day move (`desk-notes.json`). A swap of day and month cannot give
+"Tuesday became Monday", or the same meeting landing on two different days for two time zones. This looks
+like a time zone problem. It needs its own ticket and its own owner.
+
+## What to do
+
+- Keep #4471 for problem 1 and its fix.
+- Open a ticket for problem 2 and one for problem 3, each with its own count.
+- Re-tag intake: the browser guess disagrees with the cause too often to trust.
+- Revisit decision 0001: merging on the subject line alone is how three problems became one ticket.
+
+<RenderStamp {signature} />
