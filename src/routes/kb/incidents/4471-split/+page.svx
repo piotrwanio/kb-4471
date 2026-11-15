@@ -4,7 +4,7 @@ title: '#4471 · one ticket, three problems'
 owner: piotrwanio
 status: proposed
 reviewed: 2026-11-15
-signature: piotrwanio
+signature: v1.eyJzdWIiOiIxMjc2NyIsImF1ZCI6ImNoYWxsZW5nZTp3aGF0LWl0LXNob3dzIiwiaWF0IjoxNzk0NzUxNzI0LCJleHAiOjE3OTQ4MzgxMjR9.jC5rPiXAyr6blg0y7_eYNwTWS-sAcUrC-80BRTtfchw
 ---
 
 <script>
@@ -12,7 +12,7 @@ signature: piotrwanio
   import Callout from '#lib/kb/Callout.svelte';
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 
-  const signature = 'piotrwanio';
+  const signature = 'v1.eyJzdWIiOiIxMjc2NyIsImF1ZCI6ImNoYWxsZW5nZTp3aGF0LWl0LXNob3dzIiwiaWF0IjoxNzk0NzUxNzI0LCJleHAiOjE3OTQ4MzgxMjR9.jC5rPiXAyr6blg0y7_eYNwTWS-sAcUrC-80BRTtfchw';
 </script>
 
 [#4471](/kb/incidents/4471) says one bug and one fix. The reports merged into it say otherwise.
