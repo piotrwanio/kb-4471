@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 · one ticket, three problems'
+title: '#4471 · one ticket, two problems'
 owner: piotrwanio
 status: proposed
 reviewed: 2026-11-15
@@ -20,7 +20,7 @@ The desk merged them on the subject line alone ([decision 0001](/kb/decisions/00
 so reports with the same words but a different cause landed in the same ticket.
 
 <Callout>
-The queued fix covers the first problem below. The other two stay broken after it ships.
+The queued fix covers the first problem below. The second stays broken after it ships.
 </Callout>
 
 ## The split
@@ -28,7 +28,7 @@ The queued fix covers the first problem below. The other two stay broken after i
 <ProblemTable ticket={4471} />
 
 The export repeats some rows; one id counts once. A report's problem comes from its tenant, not from
-what intake guessed from the browser (`causes.ts`).
+what intake guessed from the browser (`causes.ts`). Counts are the desk's own.
 
 ## 1 · `parser`: the shared parser reads dates month first
 
@@ -46,17 +46,15 @@ Fixing the parser alone makes this worse: once the parser reads day first, peopl
 because of the hint will be flipped the other way.
 </Callout>
 
-## 3 · `one-day`: bookings move by one day, not a swap
+## A note on one-day moves
 
-The desk already read these as a one-day move (`desk-notes.json`). A swap of day and month cannot give
-"Tuesday became Monday", or the same meeting landing on two different days for two time zones. This looks
-like a time zone problem. It needs its own ticket and its own owner.
+Five reports read as a one-day move, not a swap (`desk-notes.json`): "Tuesday became Monday", or the same meeting on two different days for two time zones. The desk files them under `parser` by tenant, and so does this page, so they are counted once. They may be a time zone problem. Check them after the parser fix ships.
 
 ## What to do
 
 - Keep #4471 for problem 1 and its fix.
-- Open a ticket for problem 2 and one for problem 3, each with its own count.
+- Open a ticket for problem 2 with its own count.
 - Re-tag intake: the browser guess disagrees with the cause too often to trust.
-- Revisit decision 0001: merging on the subject line alone is how three problems became one ticket.
+- Revisit decision 0001: merging on the subject line alone is how two problems became one ticket.
 
 <RenderStamp {signature} />
